@@ -1,16 +1,45 @@
-```bash
-rosrun kalibr kalibr_calibrate_cameras --target /home/eric/slam_ws/src/VINS-Fusion/config/realsense_t265/apriltags.yaml --bag /home/eric/slam_ws/cameras_calibration.bag --models omni-radtan omni-radtan --topics /fisheye1 /fisheye2
+# Calibration
 
-cd /home/eric/slam_ws/src/VINS-Fusion/config/realsense_t265
-rosrun kalibr  kalibr_calibrate_imu_camera --target ./apriltags.yaml --cam ./cameras_calibration-camchain.yaml --imu ./imu.yaml --bag ./imu_cameras_calibration.bag --max-iter 30 --show-extraction
+## IMU
+
+
+## Camera
+```bash
+roslaunch realsense2_camera rs_t265.launch
+
+rosrun topic_tools throttle messages /camera/fisheye1/image_raw 20.0 /fisheye1 &
+rosrun topic_tools throttle messages /camera/fisheye2/image_raw 20.0 /fisheye2 
+
+rosbag record -O cameras_calibration /fisheye1 /fisheye2
+```
+
+```bash
+rosrun kalibr kalibr_calibrate_cameras --target ~/slam_ws/src/VINS-Fusion/config/realsense_t265/apriltags.yaml --bag ~/cameras_calibration.bag --models omni-radtan omni-radtan --topics /fisheye1 /fisheye2
+```
+
+## IMU+Camera
+```bash
+roslaunch realsense2_camera rs_t265.launch
+
+rosrun topic_tools throttle messages /camera/fisheye1/image_raw 20.0 /fisheye1 &
+rosrun topic_tools throttle messages /camera/fisheye2/image_raw 20.0 /fisheye2 &
+rosrun topic_tools throttle messages /camera/imu 200.0 /imu
+
+rosbag record -O imu_cameras_calibration /fisheye1 /fisheye2 /imu
+```
+
+```bash
+cd ~/slam_ws/src/VINS-Fusion/config/realsense_t265_MEI
+rosrun kalibr kalibr_calibrate_imu_camera --target ./apriltags.yaml --cam ./cameras_calibration-camchain.yaml --imu ./imu.yaml --bag ~/imu_cameras_calibration.bag --max-iter 30 --show-extraction
 
 ```
 
-
+## Run VINS
 
 ```
 roslaunch realsense2_camera rs_t265.launch
-rosrun vins vins_node ~/slam_ws/src/VINS-Fusion/config/realsense_t265/stereo_imu.yaml 
+rosrun vins vins_node ~/slam_ws/src/VINS-Fusion/config/realsense_t265_MEI/stereo_imu.yaml
+rosrun loop_fusion loop_fusion_node ~/slam_ws/src/VINS-Fusion/config/realsense_t265_MEI/stereo_imu.yaml
 roslaunch vins vins_rviz.launch
 
 rosbag record /camera/imu /camera/fisheye1/image_raw /camera/fisheye2/image_raw
