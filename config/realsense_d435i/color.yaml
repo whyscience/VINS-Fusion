@@ -1,0 +1,27 @@
+%YAML:1.0
+#---
+#   Intrinsic of "Color" / 640x360 / {YUYV/RGB8/BGR8/RGBA8/BGRA8/Y8}
+#Width:      	640
+#Height:     	360
+#PPX:        	317.991485595703
+#PPY:        	182.396377563477
+#Fx:         	321.490936279297
+#Fy:         	321.160339355469
+#Distortion: 	Inverse Brown Conrady
+#Coeffs:     	-0.0530853755772114  	0.0618362724781036  	0.000243115719058551  	-0.000230992809520103  	-0.0197865590453148
+#FOV (deg):  	89.73 x 58.54
+
+model_type: PINHOLE
+camera_name: camera
+image_width: 1280
+image_height: 720
+distortion_parameters:
+   k1: -0.0530853755772114
+   k2: 0.0618362724781036
+   p1: 0.000243115719058551
+   p2: -0.000230992809520103
+projection_parameters:
+   fx: 321.490936279297
+   fy: 321.160339355469
+   cx: 317.991485595703
+   cy: 182.396377563477
