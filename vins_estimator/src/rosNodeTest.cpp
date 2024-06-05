@@ -253,6 +253,13 @@ int main(int argc, char **argv)
 
     string config_file = argv[1];
     printf("config_file: %s\n", argv[1]);
+    //check if the config file exists
+    ifstream fin(config_file);
+    if (!fin)
+    {
+        printf("config file does not exist\n");
+        return 1;
+    }
 
     readParameters(config_file);
     estimator.setParameter();
@@ -267,11 +274,12 @@ int main(int argc, char **argv)
 
 
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr sub_imu = NULL;
-    auto qos = rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_default));
-    qos.reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT);
+    //auto qos = rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_default));
+    //qos.reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT);
+    auto qos = rclcpp::QoS(rclcpp::KeepLast(2000));
     if(USE_IMU)
     {
-        sub_imu = n->create_subscription<sensor_msgs::msg::Imu>(IMU_TOPIC, qos/*rclcpp::QoS(rclcpp::KeepLast(2000))*/, imu_callback);
+        sub_imu = n->create_subscription<sensor_msgs::msg::Imu>(IMU_TOPIC, qos, imu_callback);
     }
     auto sub_feature = n->create_subscription<sensor_msgs::msg::PointCloud>("/feature_tracker/feature", rclcpp::QoS(rclcpp::KeepLast(2000)), feature_callback);
     auto sub_img0 = n->create_subscription<sensor_msgs::msg::Image>(IMAGE0_TOPIC, rclcpp::QoS(rclcpp::KeepLast(100)), img0_callback);

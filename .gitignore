@@ -17,3 +17,4 @@ camera_chessboard_data.dat
 /.idea/
 /loop_fusion/cmake-build-debug/
 /vins_estimator/cmake-build-debug/
+/global_fusion/cmake-build-debug/

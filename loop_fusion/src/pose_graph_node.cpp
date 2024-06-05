@@ -434,6 +434,7 @@ int main(int argc, char **argv)
     if(!fsSettings.isOpened())
     {
         std::cerr << "ERROR: Wrong path to settings" << std::endl;
+        return 1;
     }
 
     cameraposevisual.setScale(0.1);
@@ -448,11 +449,24 @@ int main(int argc, char **argv)
     // referred from: https://answers.ros.org/question/288501/ros2-equivalent-of-rospackagegetpath/
     std::string pkg_path = ament_index_cpp::get_package_share_directory("loop_fusion");
     string vocabulary_file = pkg_path + "/../support_files/brief_k10L6.bin";
-    cout << "vocabulary_file" << vocabulary_file << endl;
+    cout << "vocabulary_file: " << vocabulary_file << endl;
+    //check if the file exists
+    ifstream f(vocabulary_file.c_str());
+    if (!f.good()) {
+        cout << "Vocabulary file does not exist" << endl;
+        return 1;
+    }
+
     posegraph.loadVocabulary(vocabulary_file);
 
     BRIEF_PATTERN_FILE = pkg_path + "/../support_files/brief_pattern.yml";
-    cout << "BRIEF_PATTERN_FILE" << BRIEF_PATTERN_FILE << endl;
+    cout << "BRIEF_PATTERN_FILE: " << BRIEF_PATTERN_FILE << endl;
+    //check if the file exists
+    ifstream f2(BRIEF_PATTERN_FILE.c_str());
+    if (!f2.good()) {
+        cout << "BRIEF_PATTERN_FILE file does not exist" << endl;
+        return 1;
+    }
 
     int pn = config_file.find_last_of('/');
     std::string configPath = config_file.substr(0, pn);

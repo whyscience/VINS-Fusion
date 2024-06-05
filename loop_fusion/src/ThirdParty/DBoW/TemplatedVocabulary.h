@@ -593,7 +593,7 @@ void TemplatedVocabulary<TDescriptor,F>::create(
 {
   m_k = k;
   m_L = L;
-  
+
   create(training_features);
 }
 
@@ -921,6 +921,7 @@ void TemplatedVocabulary<TDescriptor,F>::createWords()
   
   if(!m_nodes.empty())
   {
+    std::cout << "Creating words... m_k = " << m_k << ", m_L = " << m_L << std::endl;
     m_words.reserve( (int)pow((double)m_k, (double)m_L) );
 
     typename std::vector<Node>::iterator nit;
@@ -1519,6 +1520,7 @@ void TemplatedVocabulary<TDescriptor,F>::loadBin(const std::string &filename) {
   
   m_k = voc.k;
   m_L = voc.L;
+  std::cout << __func__ << ", filename = " << filename << ", m_k: " << m_k << ", m_L: " << m_L << std::endl;
   m_scoring = (ScoringType)voc.scoringType;
   m_weighting = (WeightingType)voc.weightingType;
   
@@ -1551,7 +1553,7 @@ void TemplatedVocabulary<TDescriptor,F>::loadBin(const std::string &filename) {
   // words
   m_words.resize(voc.nWords);
 
-  for(unsigned int i = 0; i < voc.nWords; ++i)
+  for(int i = 0; i < voc.nWords; ++i)
   {
     NodeId wid = (int)voc.words[i].wordId;
     NodeId nid = (int)voc.words[i].nodeId;

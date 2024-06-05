@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 project(loop_fusion)
 
 set(CMAKE_CXX_STANDARD 14)
-#add_compile_options( -Wextra -Wpedantic) # -Wall : print warning
-#add_compile_options(-Wno-vla)
-set(CMAKE_BUILD_TYPE Release)
+add_compile_options(-Wall -Wextra -Wpedantic) # -Wall : print warning
+add_compile_options(-Wno-vla -Wno-unused-parameter)
+#set(CMAKE_BUILD_TYPE Release)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -22,60 +22,41 @@ find_package(Ceres REQUIRED)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 find_package(Eigen3)
 
-include_directories( ${CERES_INCLUDE_DIRS}  ${EIGEN3_INCLUDE_DIR}) #${catkin_INCLUDE_DIRS})
-
+include_directories(${CERES_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIR}) #${catkin_INCLUDE_DIRS})
 
 
 add_executable(loop_fusion_node
-    src/pose_graph_node.cpp
-    src/pose_graph.cpp
-    src/keyframe.cpp
-    src/utility/CameraPoseVisualization.cpp
-    src/ThirdParty/DBoW/BowVector.cpp
-    src/ThirdParty/DBoW/FBrief.cpp
-    src/ThirdParty/DBoW/FeatureVector.cpp
-    src/ThirdParty/DBoW/QueryResults.cpp
-    src/ThirdParty/DBoW/ScoringObject.cpp
-    src/ThirdParty/DUtils/Random.cpp
-    src/ThirdParty/DUtils/Timestamp.cpp
-    src/ThirdParty/DVision/BRIEF.cpp
-    src/ThirdParty/VocabularyBinary.cpp
-    )
+        src/pose_graph_node.cpp
+        src/pose_graph.cpp
+        src/keyframe.cpp
+        src/utility/CameraPoseVisualization.cpp
+        src/ThirdParty/DBoW/BowVector.cpp
+        src/ThirdParty/DBoW/FBrief.cpp
+        src/ThirdParty/DBoW/FeatureVector.cpp
+        src/ThirdParty/DBoW/QueryResults.cpp
+        src/ThirdParty/DBoW/ScoringObject.cpp
+        src/ThirdParty/DUtils/Random.cpp
+        src/ThirdParty/DUtils/Timestamp.cpp
+        src/ThirdParty/DVision/BRIEF.cpp
+        src/ThirdParty/VocabularyBinary.cpp
+)
 
-    
-# added from DEBUG
-ament_target_dependencies(loop_fusion_node camera_models rclcpp ament_index_cpp std_msgs sensor_msgs visualization_msgs nav_msgs cv_bridge OpenCV) # roslib) # does 'roslib' really need ??
 
-target_link_libraries(loop_fusion_node ${OpenCV_LIBS} ${CERES_LIBRARIES} ) #${catkin_LIBRARIES}  )
+ament_target_dependencies(loop_fusion_node camera_models rclcpp ament_index_cpp std_msgs sensor_msgs visualization_msgs nav_msgs cv_bridge OpenCV)
 
+target_link_libraries(loop_fusion_node ${OpenCV_LIBS} ${CERES_LIBRARIES})
 
 
 # Install nodes
 install(
-  TARGETS loop_fusion_node
-  DESTINATION lib/${PROJECT_NAME}
+        TARGETS loop_fusion_node
+        DESTINATION lib/${PROJECT_NAME}
 )
 
-
-
-#install(TARGETS
-#    loop_fusion_node
-#    DESTINATION lib/${PROJECT_NAME}
-#)
-
-
-#install(TARGETS loop_fusion_node
-#    ARCHIVE DESTINATION lib
-#    LIBRARY DESTINATION lib
-#    RUNTIME DESTINATION bin
-#)
-
-#install(TARGETS loop_fusion_node
-#    RUNTIME DESTINATION lib/${PROJECT_NAME}
-#)
-
-
-
+# for brief_k10L6.bin
+install(DIRECTORY ../support_files/
+        DESTINATION share/${PROJECT_NAME}/../support_files/
+)
 
 
 ament_package()

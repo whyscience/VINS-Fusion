@@ -20,10 +20,10 @@ struct Word {
 };
 
 struct Vocabulary {
-    int32_t k;
-    int32_t L;
-    int32_t scoringType;
-    int32_t weightingType;
+    int32_t k{};
+    int32_t L{};
+    int32_t scoringType{};
+    int32_t weightingType{};
     
     int32_t nNodes;
     int32_t nWords;

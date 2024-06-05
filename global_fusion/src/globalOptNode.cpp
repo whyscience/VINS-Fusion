@@ -174,7 +174,6 @@ int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
     auto n = rclcpp::Node::make_shared("global_estimator");
-    //auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(100));
 
     auto sub_GPS = n->create_subscription<sensor_msgs::msg::NavSatFix>("/gps", rclcpp::QoS(rclcpp::KeepLast(100)), GPS_callback);
 
