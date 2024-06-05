@@ -173,16 +173,16 @@ void GPS_callback(const sensor_msgs::msg::NavSatFix::SharedPtr GPS_msg)
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
-    auto n = rclcpp::Node::make_shared("globalEstimator");
+    auto n = rclcpp::Node::make_shared("global_estimator");
     //auto qos_profile = rclcpp::QoS(rclcpp::KeepLast(100));
 
     auto sub_GPS = n->create_subscription<sensor_msgs::msg::NavSatFix>("/gps", rclcpp::QoS(rclcpp::KeepLast(100)), GPS_callback);
 
     auto sub_vio = n->create_subscription<nav_msgs::msg::Odometry>("/vins_estimator/odometry", rclcpp::QoS(rclcpp::KeepLast(100)), vio_callback);
 
-    pub_global_path = n->create_publisher<nav_msgs::msg::Path>("global_path", 100);
-    pub_global_odometry = n->create_publisher<nav_msgs::msg::Odometry>("global_odometry", 100);
-    pub_car = n->create_publisher<visualization_msgs::msg::MarkerArray>("car_model", 1000);
+    pub_global_path = n->create_publisher<nav_msgs::msg::Path>("/global_estimator/global_path", 100);
+    pub_global_odometry = n->create_publisher<nav_msgs::msg::Odometry>("/global_estimator/global_odometry", 100);
+    pub_car = n->create_publisher<visualization_msgs::msg::MarkerArray>("/global_estimator/car_model", 1000);
 
 
     global_path = &(globalEstimator.global_path);

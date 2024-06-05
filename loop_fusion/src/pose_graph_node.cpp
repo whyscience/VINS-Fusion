@@ -499,11 +499,11 @@ int main(int argc, char **argv)
     auto sub_margin_point = n->create_subscription<sensor_msgs::msg::PointCloud>("/vins_estimator/margin_cloud", rclcpp::QoS(rclcpp::KeepLast(2000)), margin_point_callback);
 
 
-    pub_match_img          = n->create_publisher<sensor_msgs::msg::Image>("match_image", 1000);
-    pub_camera_pose_visual = n->create_publisher<visualization_msgs::msg::MarkerArray>("camera_pose_visual", 1000);
-    pub_point_cloud        = n->create_publisher<sensor_msgs::msg::PointCloud>("point_cloud_loop_rect", 1000);
-    pub_margin_cloud       = n->create_publisher<sensor_msgs::msg::PointCloud>("margin_cloud_loop_rect", 1000);
-    pub_odometry_rect      = n->create_publisher<nav_msgs::msg::Odometry>("odometry_rect", 1000);
+    pub_match_img          = n->create_publisher<sensor_msgs::msg::Image>("/loop_fusion/match_image", 1000);
+    pub_camera_pose_visual = n->create_publisher<visualization_msgs::msg::MarkerArray>("/loop_fusion/camera_pose_visual", 1000);
+    pub_point_cloud        = n->create_publisher<sensor_msgs::msg::PointCloud>("/loop_fusion/point_cloud_loop_rect", 1000);
+    pub_margin_cloud       = n->create_publisher<sensor_msgs::msg::PointCloud>("/loop_fusion/margin_cloud_loop_rect", 1000);
+    pub_odometry_rect      = n->create_publisher<nav_msgs::msg::Odometry>("/loop_fusion/odometry_rect", 1000);
 
     std::thread measurement_process;
     std::thread keyboard_command_process;

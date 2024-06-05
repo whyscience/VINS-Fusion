@@ -42,7 +42,7 @@ extern nav_msgs::msg::Path path;
 extern rclcpp::Publisher<visualization_msgs::msg::MarkerArray>::SharedPtr pub_pose_graph; // maybe not used ??
 extern int IMAGE_ROW, IMAGE_COL;
 
-void registerPub(rclcpp::Node::SharedPtr n);
+void registerPub(const rclcpp::Node::SharedPtr& n);
 
 void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, const Eigen::Vector3d &V, double t);
 

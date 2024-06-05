@@ -31,20 +31,20 @@ static Vector3d last_path(0.0, 0.0, 0.0);
 
 size_t pub_counter = 0;
 
-void registerPub(rclcpp::Node::SharedPtr n)
+void registerPub(const rclcpp::Node::SharedPtr& n)
 {
-    pub_latest_odometry = n->create_publisher<nav_msgs::msg::Odometry>("imu_propagate", 1000);
-    pub_path = n->create_publisher<nav_msgs::msg::Path>("path", 1000);
-    pub_odometry = n->create_publisher<nav_msgs::msg::Odometry>("odometry", 1000);
-    pub_point_cloud = n->create_publisher<sensor_msgs::msg::PointCloud>("point_cloud", 1000);
-    pub_margin_cloud = n->create_publisher<sensor_msgs::msg::PointCloud>("margin_cloud", 1000);
-    pub_key_poses = n->create_publisher<visualization_msgs::msg::Marker>("key_poses", 1000);
-    pub_camera_pose = n->create_publisher<nav_msgs::msg::Odometry>("camera_pose", 1000);
-    pub_camera_pose_visual = n->create_publisher<visualization_msgs::msg::MarkerArray>("camera_pose_visual", 1000);
-    pub_keyframe_pose = n->create_publisher<nav_msgs::msg::Odometry>("keyframe_pose", 1000);
-    pub_keyframe_point = n->create_publisher<sensor_msgs::msg::PointCloud>("keyframe_point", 1000);
-    pub_extrinsic = n->create_publisher<nav_msgs::msg::Odometry>("extrinsic", 1000);
-    pub_image_track = n->create_publisher<sensor_msgs::msg::Image>("image_track", 1000);
+    pub_latest_odometry = n->create_publisher<nav_msgs::msg::Odometry>("/vins_estimator/imu_propagate", 1000);
+    pub_path = n->create_publisher<nav_msgs::msg::Path>("/vins_estimator/path", 1000);
+    pub_odometry = n->create_publisher<nav_msgs::msg::Odometry>("/vins_estimator/odometry", 1000);
+    pub_point_cloud = n->create_publisher<sensor_msgs::msg::PointCloud>("/vins_estimator/point_cloud", 1000);
+    pub_margin_cloud = n->create_publisher<sensor_msgs::msg::PointCloud>("/vins_estimator/margin_cloud", 1000);
+    pub_key_poses = n->create_publisher<visualization_msgs::msg::Marker>("/vins_estimator/key_poses", 1000);
+    pub_camera_pose = n->create_publisher<nav_msgs::msg::Odometry>("/vins_estimator/camera_pose", 1000);
+    pub_camera_pose_visual = n->create_publisher<visualization_msgs::msg::MarkerArray>("/vins_estimator/camera_pose_visual", 1000);
+    pub_keyframe_pose = n->create_publisher<nav_msgs::msg::Odometry>("/vins_estimator/keyframe_pose", 1000);
+    pub_keyframe_point = n->create_publisher<sensor_msgs::msg::PointCloud>("/vins_estimator/keyframe_point", 1000);
+    pub_extrinsic = n->create_publisher<nav_msgs::msg::Odometry>("/vins_estimator/extrinsic", 1000);
+    pub_image_track = n->create_publisher<sensor_msgs::msg::Image>("/vins_estimator/image_track", 1000);
 
     cameraposevisual.setScale(0.1);
     cameraposevisual.setLineWidth(0.01);
