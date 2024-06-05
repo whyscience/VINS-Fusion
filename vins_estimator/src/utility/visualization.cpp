@@ -321,8 +321,6 @@ void pubTF(const Estimator &estimator, const std_msgs::msg::Header &header)
 {
     return; // tmp.
 
-
-    cout << "tf 1" << endl;
     if( estimator.solver_flag != Estimator::SolverFlag::NON_LINEAR)
         return;
 
@@ -334,17 +332,13 @@ void pubTF(const Estimator &estimator, const std_msgs::msg::Header &header)
     Vector3d correct_t;
     Quaterniond correct_q;
     
-    cout << "tf 2" << endl;
     correct_t = estimator.Ps[WINDOW_SIZE];
     correct_q = estimator.Rs[WINDOW_SIZE];
 
-    cout << "tf 3" << endl;
-
-    
-    cout << header.stamp.sec + header.stamp.nanosec * (1e-9) << endl;
-    cout << correct_t << endl;
-    cout << correct_q.w() << " " << correct_q.x() << " " << correct_q.y() << " " << correct_q.z() << endl;
-
+    //cout << "pubTF" << endl;
+    //cout << "stamp: " << header.stamp.sec + header.stamp.nanosec * (1e-9) << endl;
+    //cout << "correct_t: " <<correct_t << endl;
+    //cout << correct_q.w() << " " << correct_q.x() << " " << correct_q.y() << " " << correct_q.z() << endl;
 
     // transform.header.stamp = header.stamp;
     transform.header.frame_id = "world";
@@ -353,9 +347,6 @@ void pubTF(const Estimator &estimator, const std_msgs::msg::Header &header)
     transform.transform.translation.x = correct_t(0);
     transform.transform.translation.y = correct_t(1);
     transform.transform.translation.z = correct_t(2);
-
-    cout << "tf 4" << endl;
-
 
     q.setW(correct_q.w());
     q.setX(correct_q.x());
@@ -366,14 +357,7 @@ void pubTF(const Estimator &estimator, const std_msgs::msg::Header &header)
     transform.transform.rotation.z = q.z();
     transform.transform.rotation.w = q.w();
 
-    cout << "tf 5" << endl;
-
     br->sendTransform(transform);
-
-
-    cout << "tf 6" << endl;
-
-
 
     // camera frame
     transform_cam.header.stamp = header.stamp;
@@ -397,9 +381,6 @@ void pubTF(const Estimator &estimator, const std_msgs::msg::Header &header)
 
     // br->sendTransform(transform_cam);
 
-    cout << "tf 7" << endl;
-
-    
     nav_msgs::msg::Odometry odometry;
     odometry.header = header;
     odometry.header.frame_id = "world";
@@ -412,10 +393,7 @@ void pubTF(const Estimator &estimator, const std_msgs::msg::Header &header)
     odometry.pose.pose.orientation.z = tmp_q.z();
     odometry.pose.pose.orientation.w = tmp_q.w();
 
-    cout << "tf 8" << endl;
     pub_extrinsic->publish(odometry);
-    cout << "tf 9" << endl;
-
 }
 
 

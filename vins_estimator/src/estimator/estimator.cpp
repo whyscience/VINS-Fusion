@@ -453,9 +453,7 @@ void Estimator::processIMU(double t, double dt, const Vector3d &linear_accelerat
 
 void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> &image, const double header)
 {
-
-
-    cout << std::fixed << header << endl;
+    //cout << "processImage: " << std::fixed << header << endl;
 
     ROS_DEBUG("new image coming ------------------------------------------");
     ROS_DEBUG("Adding feature points %lu", image.size());

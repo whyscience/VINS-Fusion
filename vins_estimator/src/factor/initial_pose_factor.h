@@ -77,7 +77,7 @@ class InitialPoseFactor : public ceres::SizedCostFunction<6, 7>
 		residual = sqrt_info * residual;
 
 	    puts("num");
-	    std::cout << residual.transpose() << std::endl;
+	    std::cout << " residual = " << residual.transpose() << std::endl;
 
 	    const double eps = 1e-6;
 	    Eigen::Matrix<double, 6, 6> num_jacobian;

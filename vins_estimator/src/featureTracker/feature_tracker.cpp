@@ -288,7 +288,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
                     cout << "mask type wrong " << endl;
                 cv::goodFeaturesToTrack(cur_img, n_pts, MAX_CNT - cur_pts.size(), 0.01, MIN_DIST, mask);
                 // printf("good feature to track costs: %fms\n", t_t.toc());
-                std::cout << "n_pts size: "<< n_pts.size()<<std::endl;
+                //std::cout << "n_pts size: "<< n_pts.size()<<std::endl;
             }
             else
                 n_pts.clear();

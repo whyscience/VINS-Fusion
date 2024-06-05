@@ -2,13 +2,13 @@
 
 #common parameters
 #support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; 
-imu: 1         
-num_of_cam: 1  
+imu: 1
+num_of_cam: 1
 
 imu_topic: "/camera/camera/imu"
 image0_topic: "/camera/camera/color/image_raw"
 image1_topic: "/cam1/image_raw"
-output_path: "./output/"
+output_path: "./output"
 
 cam0_calib: "color.yaml"
 cam1_calib: "cam1_mei.yaml"

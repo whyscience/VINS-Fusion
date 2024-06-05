@@ -58,7 +58,7 @@ T readParam(rclcpp::Node::SharedPtr n, std::string name)
     if (n->get_parameter(name, ans))
     {
         ROS_INFO("Loaded %s: ", name);
-        std::cout << ans << std::endl;
+        std::cout << "ans: " << ans << std::endl;
     }
     else
     {
