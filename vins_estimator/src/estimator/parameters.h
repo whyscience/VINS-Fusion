@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include <ros/ros.h>
+#include <rclcpp/rclcpp.hpp>
 #include <vector>
 #include <eigen3/Eigen/Dense>
 #include "../utility/utility.h"
@@ -20,6 +20,10 @@
 
 using namespace std;
 
+#define ROS_INFO RCUTILS_LOG_INFO
+#define ROS_WARN RCUTILS_LOG_WARN
+#define ROS_ERROR RCUTILS_LOG_ERROR
+
 const double FOCAL_LENGTH = 460.0;
 const int WINDOW_SIZE = 10;
 const int NUM_OF_F = 1000;
@@ -28,6 +32,10 @@ const int NUM_OF_F = 1000;
 extern double INIT_DEPTH;
 extern double MIN_PARALLAX;
 extern int ESTIMATE_EXTRINSIC;
+
+extern int USE_GPU;
+extern int USE_GPU_ACC_FLOW;
+extern int USE_GPU_CERES;
 
 extern double ACC_N, ACC_W;
 extern double GYR_N, GYR_W;
@@ -56,7 +64,6 @@ extern int MULTIPLE_THREAD;
 extern map<int, Eigen::Vector3d> pts_gt;
 
 extern std::string IMAGE0_TOPIC, IMAGE1_TOPIC;
-extern int FISHEYE;
 extern std::string FISHEYE_MASK;
 extern std::vector<std::string> CAM_NAMES;
 extern int MAX_CNT;

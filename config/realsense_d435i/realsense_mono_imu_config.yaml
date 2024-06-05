@@ -2,18 +2,18 @@
 
 #common parameters
 #support: 1 imu 1 cam; 1 imu 2 cam: 2 cam; 
-imu: 1
+imu: 1         
 num_of_cam: 1  
 
-imu_topic: "/camera/imu"
-image0_topic: "/camera/color/image_raw"
+imu_topic: "/camera/camera/imu"
+image0_topic: "/camera/camera/color/image_raw"
 image1_topic: "/cam1/image_raw"
-output_path: "~/output/"
+output_path: "./output/"
 
 cam0_calib: "color.yaml"
 cam1_calib: "cam1_mei.yaml"
-image_width: 640
-image_height: 360
+image_width: 1280
+image_height: 720
    
 
 # Extrinsic parameter between IMU and Camera.
@@ -59,5 +59,5 @@ td: 0.0                             # initial value of time offset. unit: s. rea
 
 #loop closure parameters
 load_previous_pose_graph: 0        # load and reuse previous pose graph; load from 'pose_graph_save_path'
-pose_graph_save_path: "~/output/pose_graph/" # save and load path
+pose_graph_save_path: "./output/pose_graph/" # save and load path
 save_image: 1                   # save image in pose graph for visualization prupose; you can close this function by setting 0 
