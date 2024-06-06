@@ -53,7 +53,7 @@ colcon build --symlink-install && source ./install/setup.bash && source ./instal
 
 ```bash
 # vins
-PATH_TO_YOUR_VINS_CONFIG_FILE=~/ws_vins_ros2/src/VINS-Fusion-ROS2/config/euroc/euroc_mono_imu_config.yaml
+PATH_TO_YOUR_VINS_CONFIG_FILE=~/ws_vins_ros2/src/VINS-Fusion-ROS2/config/euroc/sony_mono_imu_config.yaml
 ros2 run vins vins_node $(PATH_TO_YOUR_VINS_CONFIG_FILE)
 ros2 run loop_fusion loop_fusion_node $(PATH_TO_YOUR_VINS_CONFIG_FILE) 
 # Rviz2 visualization

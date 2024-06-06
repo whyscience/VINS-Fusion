@@ -4,7 +4,7 @@ project(vins)
 set(CMAKE_CXX_STANDARD 14)
 add_compile_options(-Wall -Wextra -Wpedantic)
 add_compile_options(-Wno-vla -Wno-unused-result -Wno-unused-parameter)
-#set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_BUILD_TYPE Release)
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
