@@ -155,8 +155,8 @@ void imu_callback(const sensor_msgs::msg::Imu::SharedPtr imu_msg)
     Vector3d gyr(rx, ry, rz);
 
     // std::cout << "got t_imu: " << std::fixed << t << endl;
+    // std::cout << "acc.norm = " << acc.norm() << endl;
     estimator.inputIMU(t, acc, gyr);
-    return;
 }
 
 
@@ -193,7 +193,6 @@ void feature_callback(const sensor_msgs::msg::PointCloud::SharedPtr feature_msg)
     }
     double t = feature_msg->header.stamp.sec + feature_msg->header.stamp.nanosec * (1e-9);
     estimator.inputFeature(t, featureFrame);
-    return;
 }
 
 void restart_callback(const std_msgs::msg::Bool::SharedPtr restart_msg)
@@ -204,7 +203,6 @@ void restart_callback(const std_msgs::msg::Bool::SharedPtr restart_msg)
         estimator.clearState();
         estimator.setParameter();
     }
-    return;
 }
 
 void imu_switch_callback(const std_msgs::msg::Bool::SharedPtr switch_msg)
@@ -219,7 +217,6 @@ void imu_switch_callback(const std_msgs::msg::Bool::SharedPtr switch_msg)
         //ROS_WARN("disable IMU!");
         estimator.changeSensorType(0, STEREO);
     }
-    return;
 }
 
 void cam_switch_callback(const std_msgs::msg::Bool::SharedPtr switch_msg)
@@ -234,7 +231,6 @@ void cam_switch_callback(const std_msgs::msg::Bool::SharedPtr switch_msg)
         //ROS_WARN("use mono camera (left)!");
         estimator.changeSensorType(USE_IMU, 0);
     }
-    return;
 }
 
 int main(int argc, char **argv)
